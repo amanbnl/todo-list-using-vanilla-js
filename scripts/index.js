@@ -77,7 +77,7 @@ const toggleComplete = (event, itemId) => {
   if (event.target.classList.contains("todo-item") || event.target.classList.contains("not-completed") || event.target.classList.contains("completed")) {
     const todoItemDetails = TODO_LIST_ITEMS.find(i => i.id == itemId)
 
-    const userConsent = confirm(`Are you sure you want to ${todoItemDetails.isCompleted ? "Un Mark" : "Mark"} this item as completed.`)
+    const userConsent = confirm(`Are you sure you want to Mark this item as ${todoItemDetails.isCompleted ? "Un Completed" : "completed"}.`)
     if (userConsent) {
       TODO_LIST_ITEMS = TODO_LIST_ITEMS.map(i => {
         if (i.id == itemId) {
