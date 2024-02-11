@@ -66,6 +66,7 @@ const deleteItemFromList = (itemId) => {
   if (userConsent) {
     TODO_LIST_ITEMS = TODO_LIST_ITEMS.filter(i => i.id !== itemId)
     setItemsToLocalStorage(TODO_LIST_ITEMS)
+    clearFormInputs()
     loadTodoItems()
   }
   return
