@@ -30,6 +30,7 @@ const addItemToList = (description) => {
     isCompleted: false
   }
   TODO_LIST_ITEMS.push(newItem)
+  setItemsToLocalStorage(TODO_LIST_ITEMS)
   clearFormInputs()
   loadTodoItems()
   return
@@ -47,6 +48,7 @@ const updateItem = (item) => {
     ...item
   }
   TODO_LIST_ITEMS[indexOfItem] = updatedItem
+  setItemsToLocalStorage(TODO_LIST_ITEMS)
   loadTodoItems()
   CURRENT_SELECTED_TODO_ITEM_ID = null
   clearFormInputs()
@@ -63,6 +65,7 @@ const deleteItemFromList = (itemId) => {
   const userConsent = confirm("Are you sure you want to delete this item ?")
   if (userConsent) {
     TODO_LIST_ITEMS = TODO_LIST_ITEMS.filter(i => i.id !== itemId)
+    setItemsToLocalStorage(TODO_LIST_ITEMS)
     loadTodoItems()
   }
   return
@@ -85,6 +88,7 @@ const toggleComplete = (event, itemId) => {
         }
         return i
       })
+      setItemsToLocalStorage(TODO_LIST_ITEMS)
     }
     loadTodoItems()
   }
@@ -99,6 +103,7 @@ const clearListItemWrapper = () => TODO_LIST_ITEMS_WRAPPER.innerHTML = '';
 
 //function to load todo's to the UI
 const loadTodoItems = () => {
+  TODO_LIST_ITEMS = getItemsFromLocalStorage()
   // clearing the list item wrapper first
   clearListItemWrapper()
   // dynamically creating the UI for list items
@@ -199,6 +204,23 @@ const clearFormInputs = () => {
   UPDATE_TODO_ITEM_FORM_INPUT.value = ""
   UPDATE_TODO_ITEM_FORM.style.display = "none";
   ADD_TODO_ITEM_FORM.style.display = "block";
+}
+
+/**
+ * function to get items from Local storage
+ * @returns 
+ */
+const getItemsFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("TODO_LIST_ITEMS")) || []
+}
+/**
+ * function to set items to local storage
+ * @param {*} items 
+ * @returns 
+ */
+const setItemsToLocalStorage = (items) => {
+  localStorage.setItem("TODO_LIST_ITEMS",JSON.stringify(items))
+  return
 }
 
 
